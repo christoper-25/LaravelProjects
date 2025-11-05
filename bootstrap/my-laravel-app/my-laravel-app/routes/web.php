@@ -15,6 +15,8 @@ Route::post('/rider/login', [RiderAuthController::class, 'login'])->name('rider.
 Route::get('/rider/dashboard', [RiderAuthController::class, 'dashboard'])->name('rider.dashboard');
 Route::get('/rider/logout', [RiderAuthController::class, 'logout'])->name('rider.logout');
 Route::get('/history', [RiderAuthController::class, 'history']);
+Route::post('/rider/logout', [RiderAuthController::class, 'logout'])->name('rider.logout');
+
 
 
 
