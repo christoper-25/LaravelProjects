@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Rider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Hash;
 
 class RiderAuthController extends Controller
@@ -69,5 +71,8 @@ class RiderAuthController extends Controller
         return redirect('/rider/login');
         
     }
+    
 }
+
+
 

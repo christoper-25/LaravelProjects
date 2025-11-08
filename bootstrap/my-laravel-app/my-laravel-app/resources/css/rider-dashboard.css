@@ -1,0 +1,599 @@
+    /* === GLOBAL STYLES === */
+    body {
+      background-color: #0e0e0e;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    h3,
+    h5,
+    h6 {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    /* === SCROLLBAR === */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #dc3545;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    /* === SIDEBAR === */
+    .sidebar {
+      background-color: #121212;
+      min-height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 250px;
+      padding: 30px 20px;
+      border-right: 1px solid #222;
+      transition: all 0.4s ease-in-out;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 3px 0 15px rgba(220, 53, 69, 0.2);
+    }
+
+    .profile-section {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .profile-pic {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid #dc3545;
+      object-fit: cover;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.1);
+    }
+
+    .sidebar h5 {
+      color: #fff;
+      margin: 5px 0 0;
+      font-size: 1rem;
+    }
+
+    .sidebar h6 {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    .nav-link {
+      color: #ddd;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #dc3545;
+      color: #fff;
+      transform: translateX(5px);
+    }
+
+    /* === MAIN CONTENT === */
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      transition: margin-left 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === DASHBOARD HEADER === */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #141414;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 15px rgba(220, 53, 69, 0.3);
+      gap: 20px;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .dashboard-header img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      object-fit: cover;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .dashboard-header img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+    }
+
+    /* === CARDS === */
+    .content-card {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      border-left: 5px solid #dc3545;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.8s ease;
+      height: 70px;
+    }
+
+    .content-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    }
+
+    /* === MAP === */
+    #map {
+      height: 350px;
+      border-radius: 10px;
+      margin-top: 10px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    /* === BUTTONS === */
+    .btn-danger {
+      background-color: #dc3545 !important;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      color: #fff !important;
+    }
+
+    .btn-danger:hover {
+      background-color: #b52d3a !important;
+      transform: scale(1.05);
+    }
+
+    /* === DROPDOWN MENU (Profile) === */
+    .dropdown-menu {
+      border: 1px solid #dc3545;
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      margin-top: 10px;
+      padding: 5px 0;
+      box-shadow: 0 0 15px rgba(220, 53, 69, 0.2);
+    }
+
+    .dropdown-item {
+      color: #fff;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === RESPONSIVE STYLES === */
+
+    /* Tablets */
+
+
+    /* === MOBILE VIEW (SIDEBAR ON TOP HORIZONTAL) === */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: unset;
+        position: fixed;
+        top: 0;
+        left: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        border-right: none;
+        border-bottom: 1px solid #222;
+        box-shadow: 0 3px 10px rgba(220, 53, 69, 0.2);
+      }
+
+      .nav-links {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+      }
+
+      .profile-section {
+        position: absolute;
+        right: 15px;
+        top: 8px;
+        margin: 0;
+      }
+
+      .profile-pic {
+        width: 45px;
+        height: 45px;
+        border: 2px solid #dc3545;
+      }
+
+      .main-content {
+        margin: 80px 0 0 0;
+        padding: 1.2rem;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .dashboard-header img {
+        max-width: 90%;
+      }
+
+      /* Hide desktop logout button, show dropdown */
+      .profile-section .d-none.d-md-block {
+        display: none !important;
+      }
+
+      .dropdown-menu {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    /* Small phones *
+
+    /* === DESKTOP VIEW: SHOW LOGOUT BELOW PROFILE === */
+    @media (min-width: 769px) {
+      .profile-section .dropdown-menu {
+        display: none !important;
+      }
+
+      .logout-desktop {
+        margin-top: 10px;
+      }
+    }
+
+    /* === UNIFORM SIDEBAR BUTTONS === */
+    .nav-pills {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-pills .nav-item {
+      width: 100%;
+    }
+
+    .nav-pills .nav-link {
+      width: 100%;
+      text-align: center;
+      border: 1px solid #dc3545;
+      /* red outline */
+      border-radius: 10px;
+      color: #fff;
+      background: transparent;
+      padding: 10px 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-pills .nav-link:hover {
+      background: rgba(220, 53, 69, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-pills .nav-link.active {
+      background: #dc3545 !important;
+      color: #fff !important;
+      border-color: #dc3545;
+      box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+    }
+
+    /* 🌞 Light Mode (Default) */
+    body.light-mode {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    .light-mode .dashboard-header {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ddd;
+    }
+
+    .light-mode .sidebar {
+      background-color: #fff;
+      color: #000;
+      border-right: 1px solid #ddd;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+
+    .dark-mode .dashboard-header {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .dark-mode .sidebar {
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+
+    .dark-mode .card {
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+
+    /* ✅ Make map fully responsive */
+    #map {
+      width: 100%;
+      height: 60vh;
+      /* take 60% of screen height */
+      min-height: 300px;
+      border-radius: 10px;
+    }
+
+    /* ✅ Adjust padding and alignment for smaller screens */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .card {
+        margin-bottom: 15px;
+      }
+
+      input.form-control {
+        font-size: 14px;
+      }
+
+      button.btn {
+        font-size: 14px;
+        padding: 10px 12px;
+      }
+
+      #themeToggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 2000;
+      }
+    }
+
+    /* ✅ Dark mode background fix for mobile readability */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+
+    .card.dark-mode {
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+
+    /* === MAP CONTAINER ENHANCEMENT === */
+    #mapContainer {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(220, 53, 69, 0.3);
+      box-shadow: 0 8px 24px rgba(220, 53, 69, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    /* When fullscreen */
+    .fullscreen-map {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 9999;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Map itself */
+    #map {
+      width: 100%;
+      height: 60vh;
+      border-radius: inherit;
+      transition: all 0.3s ease;
+    }
+
+    /* Fullscreen button */
+    #fullscreenBtn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 10000;
+      background: rgba(255, 255, 255, 0.85);
+      border: 2px solid #dc3545;
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    #fullscreenBtn:hover {
+      background: #fff;
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(220, 53, 69, 0.6);
+    }
+
+    .fullscreen-map #fullscreenBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    /* === MOBILE BOTTOM NAVBAR === */
+    .mobile-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background-color: #121212;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #222;
+      box-shadow: 0 -3px 10px rgba(220, 53, 69, 0.3);
+      z-index: 1000;
+    }
+
+    .mobile-bottom-nav .nav-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #fff;
+      text-align: center;
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .mobile-bottom-nav .nav-btn i {
+      font-size: 1.3rem;
+    }
+
+    .mobile-bottom-nav .nav-btn.active {
+      color: #dc3545;
+      /* active red color */
+      transform: scale(1.1);
+    }
+
+    .mobile-bottom-nav .nav-btn:hover {
+      color: #dc3545;
+    }
+
+    /* === HIDE SIDEBAR IN MOBILE VIEW === */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none !important;
+      }
+
+      .main-content {
+        margin: 0 !important;
+        padding-top: 1rem !important;
+      }
+    }
+
+
+    /* Adjust content so it won’t be hidden by navbar */
+    @media (max-width: 768px) {
+      .main-content {
+        padding-bottom: 90px;
+      }
+    }
+
+    /* === Default (Desktop) === */
+.profile-section {
+  position: static;
+  padding: 10px;
+}
+
+/* === Mobile View === */
+@media (max-width: 768px) {
+  .profile-section {
+    position: fixed;
+    bottom: 80px; /* above the mobile nav bar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 1000;
+  }
+
+  .profile-section h5,
+  .profile-section h6 {
+    color: white;
+  }
+
+  .profile-section .btn {
+    width: 100%;
+  }
+
+  .profile-pic {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+    
+
