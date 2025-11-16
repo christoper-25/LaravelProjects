@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rider Dashboard</title>
 
@@ -50,26 +51,25 @@
 
 
     <!-- PROFILE SECTION -->
-<div class="profile-section dropdown text-center mt-2">
-  <img
-    src="{{ asset('videos/A952D051-BA1D-47D0-B69D-08AC9EB2ADEE_1_201_a.jpeg') }}"
-    alt="Profile Picture"
-    class="profile-pic dropdown-toggle"
-    id="profileDropdown"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-    style="width: 70px; height: 70px; border-radius: 50%;"
-  >
+    <div class="profile-section dropdown text-center mt-2">
+      <img
+        src="{{ asset('videos/A952D051-BA1D-47D0-B69D-08AC9EB2ADEE_1_201_a.jpeg') }}"
+        alt="Profile Picture"
+        class="profile-pic dropdown-toggle"
+        id="profileDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="width: 70px; height: 70px; border-radius: 50%;">
 
-  <h5 class="mt-2">Welcome Back</h5>
-  <h6>{{ $rider->name ?? 'Rider' }}</h6>
+      <h5 class="mt-2">Welcome Back</h5>
+      <h6>{{ $rider->name ?? 'Rider' }}</h6>
 
-  <!-- SINGLE LOGOUT FORM -->
-  <form id="logoutForm" method="POST" action="{{ route('rider.logout') }}">
-    @csrf
-    <button type="button" class="btn btn-danger w-100 mt-2 logout-btn">🚪 Logout</button>
-  </form>
-</div>
+      <!-- SINGLE LOGOUT FORM -->
+      <form id="logoutForm" method="POST" action="{{ route('rider.logout') }}">
+        @csrf
+        <button type="button" class="btn btn-danger w-100 mt-2 logout-btn">🚪 Logout</button>
+      </form>
+    </div>
 
 
 
@@ -78,24 +78,23 @@
   <!-- === MAIN CONTENT === -->
   <div class="main-content">
     <div class="tab-content">
-<!-- MOBILE PROFILE TAB -->
-<div class="tab-pane fade" id="profile">
-  <div class="p-3 text-center">
-    <img
-      src="{{ asset('videos/A952D051-BA1D-47D0-B69D-08AC9EB2ADEE_1_201_a.jpeg') }}"
-      alt="Profile Picture"
-      style="width:80px; height:80px; border-radius:50%; margin-bottom:10px;"
-    >
-    <h5>{{ $rider->name ?? 'Rider' }}</h5>
-    <p class="text-muted">Welcome Back!</p>
+      <!-- MOBILE PROFILE TAB -->
+      <div class="tab-pane fade" id="profile">
+        <div class="p-3 text-center">
+          <img
+            src="{{ asset('videos/A952D051-BA1D-47D0-B69D-08AC9EB2ADEE_1_201_a.jpeg') }}"
+            alt="Profile Picture"
+            style="width:80px; height:80px; border-radius:50%; margin-bottom:10px;">
+          <h5>{{ $rider->name ?? 'Rider' }}</h5>
+          <p class="text-muted">Welcome Back!</p>
 
-    <!-- Logout Form -->
-    <form id="logoutFormMobile" method="POST" action="{{ route('rider.logout') }}">
-      @csrf
-      <button type="button" class="btn btn-danger w-100 logout-btn">🚪 Logout</button>
-    </form>
-  </div>
-</div>
+          <!-- Logout Form -->
+          <form id="logoutFormMobile" method="POST" action="{{ route('rider.logout') }}">
+            @csrf
+            <button type="button" class="btn btn-danger w-100 logout-btn">🚪 Logout</button>
+          </form>
+        </div>
+      </div>
 
 
 
@@ -123,7 +122,7 @@
                 </div>
 
                 <div class="text-center">
-                  <button onclick="calculateRoute()" class="btn btn-danger w-100">Calculate Route</button>
+                  <button id="calculateRouteBtn" class="btn btn-danger w-100">Calculate Route</button>
                 </div>
               </div>
             </div>
@@ -195,20 +194,41 @@
         </div>
       </div>
 
-      <!-- TRANSACTIONS -->
-      <div class="tab-pane fade" id="transaction">
-        <div class="content-card">
-          <h3>💳 Transactions</h3>
-          <table class="table table-dark table-bordered mt-7">
-            <thead>
-              <tr>
+<div class="tab-pane fade" id="transaction">
+    <div class="content-card">
+        <h3>💳 Transactions</h3>
+        <div class="accordion" id="transactionsAccordion">
+            @foreach ($transactions as $transaction)
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ $transaction->transaction_id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{ $transaction->transaction_id }}" aria-expanded="false"
+                        aria-controls="collapse{{ $transaction->transaction_id }}">
+                        {{ $transaction->customer_name }} 
+                        <span class="badge bg-info ms-2">{{ $transaction->delivery_status }}</span>
+                    </button>
+                </h2>
+                <div id="collapse{{ $transaction->transaction_id }}" class="accordion-collapse collapse"
+                    aria-labelledby="heading{{ $transaction->transaction_id }}" data-bs-parent="#transactionsAccordion">
+                    <div class="accordion-body">
+                        <p><strong>Address:</strong> {{ $transaction->customer_address }}</p>
+                        <p><strong>Contact:</strong> {{ $transaction->customer_contact }}</p>
+                        <button class="btn btn-primary set-route-btn" 
+    data-name="{{ $transaction->customer_name }}" 
+    data-address="{{ $transaction->customer_address }}" 
+    data-contact="{{ $transaction->customer_contact }}">
+    Set as Destination
+</button>
 
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
-      </div>
+    </div>
+</div>
+
+
     </div>
   </div>
 
@@ -233,8 +253,98 @@
   </div>
 
 
+  <!-- Customer Details Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customerModalLabel">Customer Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Name:</strong> <span id="modalCustomerName"></span></p>
+        <p><strong>Contact:</strong> <span id="modalCustomerContact"></span></p>
+        <p><strong>Address:</strong> <span id="modalCustomerAddress"></span></p>
+        <input type="hidden" id="modalCustomerLat">
+        <input type="hidden" id="modalCustomerLng">
+      </div>
+      <div class="modal-footer">
+<button type="button" class="btn btn-primary" id="setDestinationBtn">Set Route</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-  
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const setRouteButtons = document.querySelectorAll('.set-route-btn'); // correct selector
+    const modalElement = document.getElementById('customerModal');
+    const modal = new bootstrap.Modal(modalElement);
+    const modalName = document.getElementById('modalCustomerName');
+    const modalAddress = document.getElementById('modalCustomerAddress');
+    const modalContact = document.getElementById('modalCustomerContact');
+    const toPlaceInput = document.getElementById('toPlace');
+    const setDestinationBtn = document.getElementById('setDestinationBtn');
+
+    let selectedAddress = '';
+    let selectedName = '';
+    let selectedContact = '';
+
+    // Open modal when clicking "Set as Destination"
+    setRouteButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            selectedName = btn.dataset.name;
+            selectedAddress = btn.dataset.address;
+            selectedContact = btn.dataset.contact;
+
+            modalName.textContent = selectedName;
+            modalAddress.textContent = selectedAddress;
+            modalContact.textContent = selectedContact;
+
+            modal.show();
+        });
+    });
+
+    // Set route with confirmation
+    setDestinationBtn.addEventListener('click', () => {
+        if (!selectedAddress) return;
+
+        Swal.fire({
+            title: 'Set this customer as your destination?',
+            text: `${selectedName} - ${selectedAddress}`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, set route',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                toPlaceInput.value = selectedAddress;
+
+                // Trigger route calculation
+                document.getElementById('calculateRouteBtn').click();
+
+                modal.hide();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Route set!',
+                    text: 'Destination has been updated. ',
+                    text: 'Go to your Dashboard to proceed. ',
+
+
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+    });
+});
+</script>
+
+
+
+
+
 
 
   <!-- === SCRIPTS === -->

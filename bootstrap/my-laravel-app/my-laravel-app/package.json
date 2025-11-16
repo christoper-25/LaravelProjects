@@ -17,6 +17,12 @@
     "dependencies": {
         "bootstrap": "^5.3.8",
         "jquery": "^3.7.1",
+        "laravel-echo": "^2.2.6",
+        "leaflet": "^1.9.4",
+        "leaflet-control-geocoder": "^3.3.1",
+        "leaflet-routing-machine": "^3.2.12",
+        "pusher-js": "^8.4.0",
+        "sweetalert2": "^11.26.3",
         "swiper": "^12.0.2"
     }
 }
